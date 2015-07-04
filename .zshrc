@@ -79,4 +79,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# npmoffline (see http://soledadpenades.com/2015/05/31/npmoffline-installing-npm-packages-from-the-cache/)
+alias npmoffline="npm --cache-min 9999999 "
+
+# development env for node.js
 export NODE_ENV=development
