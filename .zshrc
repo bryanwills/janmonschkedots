@@ -82,5 +82,8 @@ source $ZSH/oh-my-zsh.sh
 # npmoffline (see http://soledadpenades.com/2015/05/31/npmoffline-installing-npm-packages-from-the-cache/)
 alias npmoffline="npm --cache-min 9999999 "
 
+# open iOS simulator easily
+alias sim="open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app/"
+
 # development env for node.js
 export NODE_ENV=development
