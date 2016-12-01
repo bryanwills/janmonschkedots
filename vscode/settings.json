@@ -1,0 +1,19 @@
+// Place your settings in this file to overwrite the default settings
+{
+  "editor.fontFamily": "Hack, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 12,
+  "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "node_modules/**/*": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "git.enabled": false,
+  "workbench.statusBar.visible": false,
+  "window.zoomLevel": 1
+}
