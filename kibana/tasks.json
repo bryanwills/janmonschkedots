@@ -1,0 +1,77 @@
+{
+  "version": "2.0.0",
+  "presentation": {
+    "echo": true,
+    "reveal": "always",
+    "focus": false,
+    "panel": "shared",
+    "showReuseMessage": true,
+    "clear": false
+  },
+  "tasks": [
+    {
+      "label": "Kibana services",
+      "dependsOrder": "parallel",
+      "dependsOn": ["Security Solution", "Elasticsearch", "Kibana"],
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Security Solution",
+      "type": "shell",
+      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && zsh --interactive",
+      "isBackground": true
+    },
+    {
+      "label": "Generate security data",
+      "type": "shell",
+      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368",
+      "isBackground": false,
+      "presentation": {
+        "close": true
+      }
+    },
+    {
+      "label": "Kibana",
+      "dependsOn": "Elasticsearch",
+      "type": "shell",
+      "command": "yarn start --no-base-path",
+      "isBackground": true,
+      "presentation": {
+        "group": "kibana-background"
+      },
+      "icon": {
+        "id": "server-process",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "Elasticsearch",
+      "type": "shell",
+      "command": "yarn es snapshot --license=trial",
+      "isBackground": true,
+      "presentation": {
+        "group": "kibana-background"
+      },
+      "icon": {
+        "id": "database",
+        "color": "terminal.ansiBlue"
+      },
+      "problemMatcher": [
+        {
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "pattern": {
+            "regexp": "adding index template \\[logs\\] for index patterns \\[logs-\\*-\\*\\]"
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "Installing from snapshot",
+            "endsPattern": "adding index template \\[logs\\] for index patterns \\[logs-\\*-\\*\\]"
+          }
+        }
+      ]
+    }
+  ]
+}
