@@ -1,4 +1,0 @@
-[
-  { "key": "cmd+shift+7", "command": "editor.action.commentLine",
-                          "when": "editorTextFocus && !editorReadonly"}
-]
