@@ -15,7 +15,7 @@
       "dependsOn": ["Security Solution", "Elasticsearch", "Kibana"],
       "problemMatcher": [],
       "icon": {
-        "id": "database",
+        "id": "star",
         "color": "terminal.ansiGreen"
       }
     },
@@ -23,7 +23,11 @@
       "label": "Security Solution",
       "type": "shell",
       "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && zsh --interactive",
-      "isBackground": true
+      "isBackground": true,
+      "icon": {
+        "id": "folder",
+        "color": "terminal.ansiGreen"
+      }
     },
     {
       "label": "Generate security data",
