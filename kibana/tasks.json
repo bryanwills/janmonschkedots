@@ -31,7 +31,7 @@
       "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368",
       "isBackground": false,
       "presentation": {
-        "close": false
+        "close": true
       }
     },
     {
