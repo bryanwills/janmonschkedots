@@ -13,10 +13,11 @@
       "label": "Kibana services",
       "dependsOrder": "parallel",
       "dependsOn": ["Security Solution", "Elasticsearch", "Kibana"],
-      "runOptions": {
-        "runOn": "folderOpen"
-      },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "icon": {
+        "id": "database",
+        "color": "terminal.ansiGreen"
+      }
     },
     {
       "label": "Security Solution",
@@ -30,7 +31,7 @@
       "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368",
       "isBackground": false,
       "presentation": {
-        "close": true
+        "close": false
       }
     },
     {
@@ -48,6 +49,19 @@
       }
     },
     {
+      "label": "Kibana bootstrap",
+      "type": "shell",
+      "command": "cd $KIBANA_HOME && yarn kbn bootstrap",
+      "isBackground": false,
+      "presentation": {
+        "close": true
+      },
+      "icon": {
+        "id": "settings",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
       "label": "Elasticsearch",
       "type": "shell",
       "command": "yarn es snapshot --license=trial",
@@ -57,7 +71,7 @@
       },
       "icon": {
         "id": "database",
-        "color": "terminal.ansiBlue"
+        "color": "terminal.ansiGreen"
       },
       "problemMatcher": [
         {
@@ -72,6 +86,66 @@
           }
         }
       ]
+    },
+
+    {
+      "label": "Kibana services (serverless)",
+      "dependsOrder": "parallel",
+      "dependsOn": ["Security Solution", "Elasticsearch (serverless)", "Kibana (serverless)"],
+      "problemMatcher": [],
+      "icon": {
+        "id": "star",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "Elasticsearch (serverless)",
+      "type": "shell",
+      "command": "yarn es serverless --license=trial --kill",
+      "isBackground": true,
+      "presentation": {
+        "group": "kibana-serverless-background"
+      },
+      "icon": {
+        "id": "database",
+        "color": "terminal.ansiBlue"
+      },
+      "problemMatcher": [
+        {
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "pattern": {
+            "regexp": "es01. started"
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "Verifying Docker is installed.",
+            "endsPattern": "es01. started"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Kibana (serverless)",
+      "dependsOn": "Elasticsearch (serverless)",
+      "type": "shell",
+      "command": "yarn serverless-security --no-base-path",
+      "isBackground": true,
+      "presentation": {
+        "group": "kibana-serverless-background"
+      },
+      "icon": {
+        "id": "server-process",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "Generate security data (serverless)",
+      "type": "shell",
+      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate --node http://elastic_serverless:changeme@localhost:9200 --kibana http://elastic_serverless:changeme@localhost:5601/ -s 0.6406096255278368",
+      "isBackground": false,
+      "presentation": {
+        "close": true
+      }
     }
   ]
 }
