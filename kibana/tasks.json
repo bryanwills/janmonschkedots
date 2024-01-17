@@ -30,6 +30,16 @@
       }
     },
     {
+      "label": "Cypress Security Solution",
+      "type": "shell",
+      "command": "cd $KIBANA_HOME/x-pack/test/security_solution_cypress && zsh --interactive",
+      "isBackground": true,
+      "icon": {
+        "id": "folder",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
       "label": "Generate security data",
       "type": "shell",
       "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368",
