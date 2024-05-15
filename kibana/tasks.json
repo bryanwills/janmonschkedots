@@ -5,7 +5,7 @@
     "reveal": "always",
     "focus": false,
     "panel": "shared",
-    "showReuseMessage": true,
+    "showReuseMessage": false,
     "clear": false
   },
   "tasks": [
@@ -42,10 +42,14 @@
     {
       "label": "Generate security data",
       "type": "shell",
-      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368",
+      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368 && curl --location 'http://elastic:changeme@localhost:5601/api/detection_engine/rules' --header 'kbn-xsrf: cypress-creds' --header 'Content-Type: application/json'  --header 'elastic-api-version: 2023-10-31' --data '{\"type\": \"query\",\"query\": \"*\",\"index\": [\"apm-*-transaction*\",\"auditbeat-*\",\"endgame-*\",\"filebeat-*\",\"logs-*\",\"packetbeat-*\",\"traces-apm*\",\"winlogbeat-*\",\"-*elastic-cloud-logs-*\"],\"name\": \"Custom\",\"description\": \"The new rule description.\",\"severity\": \"high\",\"risk_score\": 17,\"interval\": \"1m\",\"from\": \"now-50000h\"}'",
       "isBackground": false,
       "presentation": {
         "close": true
+      },
+      "icon": {
+        "id": "add",
+        "color": "terminal.ansiYellow"
       }
     },
     {
@@ -115,7 +119,7 @@
     {
       "label": "Elasticsearch (serverless)",
       "type": "shell",
-      "command": "yarn es serverless --license=trial --kill",
+      "command": "yarn es serverless --projectType=security --license=trial --kill",
       "isBackground": true,
       "presentation": {
         "group": "kibana-serverless-background"
@@ -159,6 +163,10 @@
       "isBackground": false,
       "presentation": {
         "close": true
+      },
+      "icon": {
+        "id": "add",
+        "color": "terminal.ansiYellow"
       }
     }
   ]
