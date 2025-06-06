@@ -22,7 +22,7 @@
     {
       "label": "Security Solution",
       "type": "shell",
-      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && zsh --interactive",
+      "command": "cd $KIBANA_HOME/x-pack/solutions/security/plugins/security_solution && zsh --interactive",
       "isBackground": true,
       "icon": {
         "id": "folder",
@@ -42,7 +42,7 @@
     {
       "label": "Generate security data",
       "type": "shell",
-      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate -s 0.6406096255278368 && curl --location 'http://elastic:changeme@localhost:5601/api/detection_engine/rules' --header 'kbn-xsrf: cypress-creds' --header 'Content-Type: application/json'  --header 'elastic-api-version: 2023-10-31' --data '{\"type\": \"query\",\"query\": \"*\",\"index\": [\"apm-*-transaction*\",\"auditbeat-*\",\"endgame-*\",\"filebeat-*\",\"logs-*\",\"packetbeat-*\",\"traces-apm*\",\"winlogbeat-*\",\"-*elastic-cloud-logs-*\"],\"name\": \"Custom\",\"description\": \"The new rule description.\",\"severity\": \"high\",\"risk_score\": 17,\"interval\": \"1m\",\"from\": \"now-50000h\"}'",
+      "command": "cd $KIBANA_HOME/x-pack/solutions/security/plugins/security_solution && yarn test:generate && curl --location 'http://elastic:changeme@localhost:5601/api/detection_engine/rules' --header 'kbn-xsrf: cypress-creds' --header 'Content-Type: application/json'  --header 'elastic-api-version: 2023-10-31' --data '{\"type\": \"query\",\"query\": \"*\",\"index\": [\"apm-*-transaction*\",\"auditbeat-*\",\"endgame-*\",\"filebeat-*\",\"logs-*\",\"packetbeat-*\",\"traces-apm*\",\"winlogbeat-*\",\"-*elastic-cloud-logs-*\"],\"name\": \"Custom\",\"description\": \"The new rule description.\",\"severity\": \"high\",\"risk_score\": 17,\"interval\": \"1m\",\"from\": \"now-50000h\"}'",
       "isBackground": false,
       "presentation": {
         "close": true
@@ -82,6 +82,7 @@
     {
       "label": "Elasticsearch",
       "type": "shell",
+      // "command": "yarn es snapshot --license=trial -E path.data=/Users/jan/code/elastic/_kbn_es_data_",
       "command": "yarn es snapshot --license=trial",
       "isBackground": true,
       "presentation": {
@@ -95,12 +96,12 @@
         {
           "fileLocation": ["relative", "${workspaceFolder}"],
           "pattern": {
-            "regexp": "adding index template \\[logs\\] for index patterns \\[logs-\\*-\\*\\]"
+            "regexp": "ES cluster is ready"
           },
           "background": {
             "activeOnStart": true,
             "beginsPattern": "Installing from snapshot",
-            "endsPattern": "adding index template \\[logs\\] for index patterns \\[logs-\\*-\\*\\]"
+            "endsPattern": "ES cluster is ready"
           }
         }
       ]
@@ -159,7 +160,7 @@
     {
       "label": "Generate security data (serverless)",
       "type": "shell",
-      "command": "cd $KIBANA_HOME/x-pack/plugins/security_solution && yarn test:generate --node http://elastic_serverless:changeme@localhost:9200 --kibana http://elastic_serverless:changeme@localhost:5601/ -s 0.6406096255278368",
+      "command": "cd $KIBANA_HOME/x-pack/solutions/security/plugins/security_solution && yarn test:generate --node http://elastic_serverless:changeme@localhost:9200 --kibana http://elastic_serverless:changeme@localhost:5601/ -s 0.6406096255278368",
       "isBackground": false,
       "presentation": {
         "close": true
